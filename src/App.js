@@ -54,7 +54,12 @@ function App() {
   ]);
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    console.log(active, over);
+    if (active.id === over.id) return;
+    setCards((items) => {
+      const oldIndex = active.data.current.sortable.index;
+      const newIndex = over.data.current.sortable.index;
+      return arrayMove(items, oldIndex, newIndex);
+    });
   };
 
   return (
