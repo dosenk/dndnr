@@ -1,5 +1,5 @@
 import React from "react";
-import { CARD_STYLE } from "./constants";
+import { CARD_STYLE } from "../constants";
 import { Card, Divider, Typography } from "@mui/material";
 
 const MyCard = ({ name, ...props }) => {

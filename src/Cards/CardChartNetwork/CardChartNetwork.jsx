@@ -1,6 +1,6 @@
 import React from "react";
 import { GRID_STYLE } from "../../constants";
-import MyCard from "../../MyCard";
+import MyCard from "../../MyCard/MyCard";
 import { Grid } from "@mui/material";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
