@@ -7,9 +7,11 @@ export const CARD_STYLE_SMALL = {
 };
 
 export const CARD_STYLE = {
-  margin: "10px",
+  boxSizing:'border-box',
+  // margin: "10px",
   padding: "3px",
-  height: "360px",
+  width:'100%',
+  height: "100%",
   boxShadow: "0px 0px 6px 0px rgb(0 0 0 / 90%)",
   border: "1px solid green",
 };

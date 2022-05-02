@@ -17,7 +17,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import MyCard from "./MyCard/MyCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardSystemInfo from "./Cards/CardSystemInfo/CardSystemInfo";
 import CardMemory from "./Cards/CardMemory/CardMemory";
 import CardWiFi from "./Cards/CardWiFI/CardWiFi";
@@ -25,6 +25,7 @@ import CardChartInfo from "./Cards/CardChartInfo/CardChartInfo";
 import CardTableInterfaces from "./Cards/CardTableInterfaces/CardTableInterfaces";
 import CardChartNetwork from "./Cards/CardChartNetwork/CardChartNetwork";
 import { SortableItem } from "./SortableItem/SortableItem";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 function App() {
   const [cards, setCards] = useState([
@@ -63,6 +64,12 @@ function App() {
     })
   );
 
+  const handleDragOver = (event) => {
+    // const { over, active } = event;
+    // over.rect.width = '607px'
+    console.log(cards.find((item) => item.id === activeId + 1));
+  };
+
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (active.id === over.id) return;
@@ -86,15 +93,17 @@ function App() {
         <DndContext
           sensors={sensors}
           onDragEnd={handleDragEnd}
+          onDragOver={handleDragOver}
           onDragStart={handleDragStart}
           collisionDetection={closestCenter}
+          modifiers={[restrictToParentElement]}
         >
           <SortableContext items={cards}>
             {cards.map((card) => {
               return card.item;
             })}
           </SortableContext>
-          <DragOverlay>{activeId ? cards[activeId].item : null}</DragOverlay>
+          <DragOverlay style={{width: '90%'}}>{activeId ? cards[activeId].item : null}</DragOverlay>
         </DndContext>
       </Grid>
     </div>
