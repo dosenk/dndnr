@@ -17,15 +17,41 @@ import {
 } from "@dnd-kit/sortable";
 import MyCard from "./MyCard";
 import { useState } from "react";
-import CardSystemInfo from "./CardSystemInfo/CardSystemInfo";
-import CardMemory from "./CardMemory/CardMemory";
-import CardWiFi from "./CardWiFI/CardWiFi";
-import CardChartInfo from "./CardChartInfo/CardChartInfo";
-import CardTableInterfaces from "./CardTableInterfaces/CardTableInterfaces";
-import CardChartNetwork from "./CardChartNetwork/CardChartNetwork";
+import CardSystemInfo from "./Cards/CardSystemInfo/CardSystemInfo";
+import CardMemory from "./Cards/CardMemory/CardMemory";
+import CardWiFi from "./Cards/CardWiFI/CardWiFi";
+import CardChartInfo from "./Cards/CardChartInfo/CardChartInfo";
+import CardTableInterfaces from "./Cards/CardTableInterfaces/CardTableInterfaces";
+import CardChartNetwork from "./Cards/CardChartNetwork/CardChartNetwork";
+import { SortableItem } from "./SortableItem/SortableItem";
 
 function App() {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState([
+    {
+      id: 1,
+      item: <CardSystemInfo id={1} />,
+    },
+    {
+      id: 2,
+      item: <CardMemory id={2} />,
+    },
+    {
+      id: 3,
+      item: <CardWiFi id={3} />,
+    },
+    {
+      id: 4,
+      item: <CardChartInfo id={4} />,
+    },
+    {
+      id: 5,
+      item: <CardTableInterfaces id={5} />,
+    },
+    {
+      id: 6,
+      item: <CardChartNetwork id={6} />,
+    },
+  ]);
   const handleDragEnd = (event) => {
     const { active, over } = event;
     console.log(active, over);
@@ -34,13 +60,15 @@ function App() {
   return (
     <div className="App">
       <Grid container>
-        <DndContext onDragEnd={handleDragEnd}>
-          <CardSystemInfo />
-          <CardMemory />
-          <CardWiFi />
-          <CardChartInfo />
-          <CardTableInterfaces />
-          <CardChartNetwork />
+        <DndContext
+          onDragEnd={handleDragEnd}
+          // collisionDetection={closestCenter}
+        >
+          <SortableContext items={cards}>
+            {cards.map((card) => {
+              return card.item;
+            })}
+          </SortableContext>
         </DndContext>
       </Grid>
     </div>
